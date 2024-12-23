@@ -1,0 +1,27 @@
+version: '3'
+services:
+  api:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_HOSTNAME=postgres
+      - DATABASE_PORT=5432
+      - DATABASE_PASSWORD=pwd1
+      - DATABASE_NAME=globant
+      - DATABASE_USERNAME=postgres
+    depends_on:
+      - postgres
+    
+  postgres:
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=pwd1
+      - POSTGRES_DB=globant
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-db:/var/lib/postgresql/data
+
+volumes:
+  postgres-db:
